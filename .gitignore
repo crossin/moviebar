@@ -3,6 +3,3 @@
 *.pyc
 *~
 *.bak
-movies/
-posters/
-*.db
