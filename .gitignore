@@ -1,0 +1,8 @@
+*.log
+*.pot
+*.pyc
+*~
+*.bak
+movies/
+posters/
+*.db

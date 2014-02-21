@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% with colors='lime green emerald teal cyan cobalt indigo violet pink magenta crimson red orange amber yellow darkMagenta darkIndigo darkCyan darkCobalt darkGreen darkOrange darkRed darkPink darkViolet darkBlue lightBlue lightOlive lightOrange lightPink lightRed darkTeal darkEmerald brown olive steel mauve taupe' %}
+<div class="tile-group six">
+  {% for m in movies %}
+  <a class="tile double bg-{{colors.split|random}} fg-white" href="/movie/{{ m.id }}/">
+    <div class="tile-content email">
+      <div class="email-image">
+        <img src="{% static '/movies/' %}{{m.photo}}" style="position:absolute;width:64px;height:auto;clip:rect(0,64px,100px,0)">
+      </div>
+      <div class="email-data">
+        <span class="email-data-title">{{m.name}}</span>
+        <span class="email-data-subtitle" style="font-size:13px;margin-top:8px">制片国家/地区: {{m.country}}</span>
+        <span class="email-data-subtitle" style="font-size:13px">上映日期: {{m.year}}</span>
+        <span class="email-data-subtitle" style="font-size:13px">豆瓣评分: {{m.score_douban}}</span>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+<div class="tile-group double">
+  <div class="tile double bg-violet fg-white" style="padding:0 20px">
+    <h3 class="fg-white">搜索影片</h3>
+    <div class="input-control text">
+      <form method="GET" id="" action="/search/">
+        <input type="text" name="keyword"/>
+        <button class="btn-search"></button>
+      </form>
+    </div>
+  </div>
+  <div class="tile double bg-lightBlue" style="display:table">
+    <p class="text-center fg-white"  style="font-size:30px;line-height:30px;display:table-cell;vertical-align:middle;cursor:default">{{start}} / {{pages}}</p>
+    <div class="brand">
+      <span class="text" style="font-size:20px">{{keyword}}</span>
+    </div>
+  </div>
+  <a class="tile bg-yellow" {% if start > 1 %} href="/search/?keyword={{keyword}}&start={{start|add:"-1"}}" {% endif %}>
+    <div class="tile-content icon">
+      <i class="icon-arrow-left-3"></i>
+    </div>
+    <div class="brand">
+      <div class="label">上一页</div>
+    </div>
+  </a>
+  <a class="tile bg-lightGreen" {% if start < pages %} href="/search/?keyword={{keyword}}&start={{start|add:"1"}}" {% endif %}>
+    <div class="tile-content icon">
+      <i class="icon-arrow-right-3"></i>
+    </div>
+    <div class="brand">
+      <div class="label">下一页</div>
+    </div>
+  </a>
+  <a class="tile bg-darkRed" href="/alltags/">
+    <div class="tile-content icon">
+      <i class="icon-tag"></i>
+    </div>
+    <div class="brand">
+      <div class="label">返回标签</div>
+    </div>
+  </a>
+  <a class="tile bg-darkOrange" href="/">
+    <div class="tile-content icon">
+      <i class="icon-home"></i>
+    </div>
+    <div class="brand">
+      <div class="label">返回首页</div>
+    </div>
+  </a>
+</div>
+{% endwith %}
+{% endblock %}

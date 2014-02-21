@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% with colors='lime green emerald teal cyan cobalt indigo violet pink magenta crimson red orange amber yellow darkMagenta darkIndigo darkCyan darkCobalt darkGreen darkOrange darkRed darkPink darkViolet darkBlue lightBlue lightOlive lightOrange lightPink lightRed darkTeal darkEmerald brown olive steel mauve taupe' %}
+<div class="tile-group double">
+  <div class="tile double quadro-vertical bg-transparent ol-transparent" style="box-shadow:none;cursor:default;display:table">
+    <div style="display:table-cell;vertical-align:middle">
+      <img src="{% static '/movies/' %}{{movie.photo}}">
+    </div>
+   </div>
+</div>
+<div class="tile-group double">
+  <div class="tile double bg-lime" style="display:table">
+    <div style="display:table-cell;vertical-align:middle;cursor:default;padding:12px">
+      <p class="fg-white" style="font-size:30px;margin:18px 0">{{movie.name}}</p>
+      <p class="fg-white" style="font-size:16px;margin:0">{{movie.alias}}</p>
+      <p class="fg-white" style="font-size:16px;margin:0">{{movie.english}}</p>
+    </div> 
+  </div>
+  <div class="tile double triple-vertical bg-lightBlue" style="cursor:default">
+    <p class="text fg-white" style="font-size:14px;line-height:20px;padding:5px">{{movie.description}}</p>
+  </div>
+</div>
+<div class="tile-group double">
+  <a class="tile bg-{{colors.split|random}}" style="display:table;cursor:default">
+    <p class="text-center fg-white"  style="font-size:40px;line-height:30px;display:table-cell;vertical-align:middle">{{movie.score_douban}}</p>
+    <div class="brand">
+      <div class="label">豆瓣评分</div>
+    </div>
+  </a>
+  <a class="tile bg-{{colors.split|random}}" style="display:table;cursor:default">
+    <p class="text-center fg-white"  style="font-size:40px;line-height:30px;display:table-cell;vertical-align:middle">{{movie.score_imdb}}</p>
+    <div class="brand">
+      <div class="label">IMDB 评分</div>
+    </div>
+  </a>
+  <a class="tile bg-{{colors.split|random}}" style="display:table;cursor:default">
+    <p class="text-center fg-white"  style="font-size:24px;line-height:30px;display:table-cell;vertical-align:middle">{{movie.country}}</p>
+    <div class="brand">
+      <div class="label">制片国家/地区</div>
+    </div>
+  </a>
+  <a class="tile bg-{{colors.split|random}}" style="display:table;cursor:default">
+    <p class="text-center fg-white"  style="font-size:18px;line-height:30px;display:table-cell;vertical-align:middle">{{movie.year}}</p>
+    <div class="brand">
+      <div class="label">上映日期</div>
+    </div>
+  </a>
+  {% for t in tags %}
+  <a class="tile bg-{{colors.split|random}}" href="/tag/{{ t.id }}/" style="display:table">
+    <p class="tag text-center fg-white"  style="font-size:16px;line-height:30px;display:table-cell;vertical-align:middle">{{t.name}}</p>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="tile-group double">
+  <div class="tile double bg-violet fg-white" style="padding:0 20px">
+    <h3 class="fg-white">搜索影片</h3>
+    <div class="input-control text">
+      <form method="GET" id="" action="/search/">
+        <input type="text" name="keyword"/>
+        <button class="btn-search"></button>
+      </form>
+    </div>
+  </div>
+  <a class="tile double double-vertical bg-orange" href="/movie/{{movie.id}}/?play=1">
+    <div class="tile-content icon">
+      <i class="icon-play-alt"></i>
+    </div>
+    <div class="brand">
+      <div class="label">点击播放</div>
+    </div>
+  </a>
+  <a class="tile bg-taupe" onclick="history.go(-1);">
+    <div class="tile-content icon">
+      <i class="icon-undo"></i>
+    </div>
+    <div class="brand">
+      <div class="label">后退</div>
+    </div>
+  </a>
+  <a class="tile bg-darkOrange" href="/">
+    <div class="tile-content icon">
+      <i class="icon-home"></i>
+    </div>
+    <div class="brand">
+      <div class="label">返回首页</div>
+    </div>
+  </a>
+</div>
+{% endwith %}
+{% endblock %}

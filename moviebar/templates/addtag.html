@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "style/admin/lk-admin.css" %}" />{% endblock %}
+
+{% block content %}
+<h3>Add tag to exp.</h3>
+<form action="" method="post">
+  {% csrf_token %}
+  <br>
+  <ul>{{ queryset|unordered_list }}</ul>
+  <div class="tag_table">
+  {{ form.as_p }}
+  </div>
+  {% for obj in queryset %}
+  <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.id }}" />
+  {% endfor %}
+  <input type="hidden" name="action" value="add_tag" />
+  <input type="hidden" name="addtag" value="yes" />
+  <input type="submit" value="Add" />
+</form>
+{% endblock %}

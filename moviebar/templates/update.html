@@ -1,0 +1,8 @@
+<form method="POST" id="" action="">
+  {% csrf_token %}
+  <input type="submit" name="update" value="get files" />
+</form>
+{% for m in newadd %}
+{{m}}
+<br />
+{% endfor %}
