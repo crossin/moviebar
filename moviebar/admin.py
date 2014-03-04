@@ -100,9 +100,9 @@ class MovieAdmin(admin.ModelAdmin):
         i = 0
         for movie in queryset:
             if movie.score_imdb == 0:
-                d_url = 'http://movie.douban.com/subject/%d/' % movie.douban_id
-                douban = urllib2.urlopen(d_url).read()
                 try:
+                    d_url = 'http://movie.douban.com/subject/%d/' % movie.douban_id
+                    douban = urllib2.urlopen(d_url).read()
                     r = re.search('http://www.imdb.com/title/(?P<imdb>.*?\d+)', douban)
                 except:
                     r = None
@@ -111,17 +111,17 @@ class MovieAdmin(admin.ModelAdmin):
                 else:
                     i_id = r.group('imdb')
                     url = r.group() + '/'
-                try:
-                    i_url = 'http://www.omdbapi.com/?i=%s' % i_id
-                    resp = urllib2.urlopen(i_url)
-                    html = resp.read()
-                    data = json.loads(html)
-                    sc = float(data['imdbRating'])
-                except:
-                    resp = urllib2.urlopen(url)
-                    html = resp.read()
-                    r = re.search('<strong><span itemprop="ratingValue">(?P<imdb>\d+.\d+)</span></strong>', html)
-                    sc = float(r.group('imdb'))
+                    try:
+                        i_url = 'http://www.omdbapi.com/?i=%s' % i_id
+                        resp = urllib2.urlopen(i_url)
+                        html = resp.read()
+                        data = json.loads(html)
+                        sc = float(data['imdbRating'])
+                    except:
+                        resp = urllib2.urlopen(url)
+                        html = resp.read()
+                        r = re.search('<strong><span itemprop="ratingValue">(?P<imdb>\d+.\d+)</span></strong>', html)
+                        sc = float(r.group('imdb'))
                 movie.score_imdb = sc
                 movie.save()
             i += 1

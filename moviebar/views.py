@@ -171,19 +171,20 @@ def update(request):
         for i in (0, 1):
             path = settings.STATICFILES_DIRS[i]
             files = os.listdir(path)
-#            files = [f.decode('cp936') for f in files]
-
+            files = [f.decode('cp936') for f in files]
+            files = [f for f in files if f.split('.')[-1] in settings.MOVIE_TYPES]
             from os.path import dirname, join as join_path
             id_file = join_path(dirname(__file__), './movie-ids.txt')
-#            import codecs
-#            f = codecs.open(id_file, 'r', 'utf-8')
-            f = open(id_file, 'r')
+            import codecs
+            f = codecs.open(id_file, 'r', 'utf-8')
+#            f = open(id_file, 'r')
             doubans = f.readlines()
             f.close()
             count = len(files)
             j = 0
             for f in files:
                 name = ''.join(f.split('.')[:-1])[4:]
+                print name
                 movie, c = models.Movie.objects.get_or_create(name=name)
                 if movie.filename == '':
                     movie.filename = path + f

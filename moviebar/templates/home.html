@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load static %}
 
 {% block head %}
@@ -58,7 +58,7 @@ ul.newsticker span {
 {% block content %}
 {% with colors='lime green emerald teal cyan cobalt indigo violet pink magenta crimson red orange amber yellow darkMagenta darkIndigo darkCyan darkCobalt darkGreen darkOrange darkRed darkPink darkViolet darkBlue lightBlue lightOlive lightOrange lightPink lightRed darkTeal darkEmerald brown olive steel mauve taupe' %}
 <div class="tile-group double">
-  <div class="tile-group-title">新片推荐</div>
+  <div class="tile-group-title">新片速递</div>
   {% for m in newest %}
   <a class="tile" href="/movie/{{ m.id }}/">
     <div class="tile-content image bg-dark" >
@@ -102,7 +102,7 @@ ul.newsticker span {
 </div> 
 
 <div class="tile-group double">
-  <div class="tile-group-title">经典好片</div>
+  <div class="tile-group-title">萤石推荐</div>
   {% for m in classic %}
   <a class="tile" href="/movie/{{ m.id }}/">
     <div class="tile-content image bg-dark" >

@@ -68,10 +68,8 @@ STATIC_URL = '/movies/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/home/crossin/Projects/moviebar/moviebar/movies/',
-    '/home/crossin/Projects/moviebar/moviebar/movies/',
-    #'D:\\movies\\',
-    #'E:\\movies\\',
+    'D:\\movies\\',
+    'E:\\movies\\',
     join_path(PROJECT_ROOT, 'movies/').replace('\\', '/'),
     join_path(PROJECT_ROOT, 'posters/').replace('\\', '/'),
     join_path(PROJECT_ROOT, 'statics/Metro-UI-CSS/').replace('\\', '/'),
@@ -166,5 +164,5 @@ LOGGING = {
     }
 }
 
-MOVIE_TYPES = ['flv', 'rm', 'wmv', 'avi', 'rmvb', 'mov', 'mkv']
+MOVIE_TYPES = ['flv', 'rm', 'wmv', 'avi', 'rmvb', 'mov', 'mkv', 'ts', 'mp4']
 PHOTO_TYPES = ['jpg', 'png', 'bmp']
