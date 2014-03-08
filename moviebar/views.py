@@ -167,37 +167,53 @@ def update_get_filename(request):
 def update(request):
     newadd = []
     if request.method == 'POST':
-        # path 1
-        for i in (0, 1):
-            path = settings.STATICFILES_DIRS[i]
-            files = os.listdir(path)
-            files = [f.decode('cp936') for f in files]
-            files = [f for f in files if f.split('.')[-1] in settings.MOVIE_TYPES]
-            from os.path import dirname, join as join_path
-            id_file = join_path(dirname(__file__), './movie-ids.txt')
-            import codecs
-            f = codecs.open(id_file, 'r', 'utf-8')
-#            f = open(id_file, 'r')
-            doubans = f.readlines()
-            f.close()
-            count = len(files)
-            j = 0
-            for f in files:
-                name = ''.join(f.split('.')[:-1])[4:]
-                print name
-                movie, c = models.Movie.objects.get_or_create(name=name)
-                if movie.filename == '':
-                    movie.filename = path + f
-                    movie.save()
-                    newadd.append(f)
-                if movie.douban_id is None:
-                    for douban in doubans:
-                        if name in douban:
-                            did = douban.split()[0]
-                            movie.douban_id = did
-                            movie.save()
-                j += 1
-                print 'folder %d: %d / %d' % (i, j, count)
+        # update files to list
+        if 'update' in request.POST:
+            for i in (0, 1):
+                path = settings.STATICFILES_DIRS[i]
+                files = os.listdir(path)
+                files = [f.decode('cp936') for f in files]
+                files = [f for f in files if f.split('.')[-1] in settings.MOVIE_TYPES]
+                from os.path import dirname, join as join_path
+                id_file = join_path(dirname(__file__), './movie-ids.txt')
+                import codecs
+                f = codecs.open(id_file, 'r', 'utf-8')
+#                f = open(id_file, 'r')
+                doubans = f.readlines()
+                f.close()
+                count = len(files)
+                j = 0
+                for f in files:
+                    name = ''.join(f.split('.')[:-1])[4:]
+                    print name
+                    movie, c = models.Movie.objects.get_or_create(name=name)
+                    if movie.filename == '':
+                        movie.filename = path + f
+                        movie.save()
+                        newadd.append(f)
+                    if movie.douban_id is None:
+                        for douban in doubans:
+                            if name in douban:
+                                did = douban.split()[0]
+                                movie.douban_id = did
+                                movie.save()
+                    j += 1
+                    print 'folder %d: %d / %d' % (i, j, count)
+        elif 'check' in request.POST:
+            movies = models.Movie.objects.all()
+            movie_files = []
+            for i in (0, 1):
+                path = settings.STATICFILES_DIRS[i]
+                files = os.listdir(path)
+                files = [f.decode('cp936') for f in files]
+                movie_files += [f for f in files if f.split('.')[-1] in settings.MOVIE_TYPES]
+            names = [''.join(f.split('.')[:-1])[4:] for f in movie_files]
+            print movie_files
+            print [m.name for m in movies]
+            print names
+            for m in movies:
+                if m.name not in names:
+                    newadd.append(m.name)
     return TemplateResponse(
         request,
         'update.html',
