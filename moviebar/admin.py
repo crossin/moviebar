@@ -67,10 +67,10 @@ class MovieAdmin(admin.ModelAdmin):
             movie.score_douban = data['rating']['average']
             movie.description = data['summary']
             movie.save()
-            tags = data['genres']
-            for t in tags:
-                tag, c = models.Tag.objects.get_or_create(name=t)
-                movie.tags.add(tag)
+            # tags = data['genres']
+            # for t in tags:
+            #     tag, c = models.Tag.objects.get_or_create(name=t)
+            #     movie.tags.add(tag)
             i += 1
             print '%d / %d' % (i, count)
 
