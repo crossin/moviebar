@@ -237,6 +237,7 @@ def search(request):
     start = int(request.GET.get('start', 1))
     pages = 1
     keyword = request.GET.get('keyword', '').strip()
+    count = 0
     if keyword:
         all_movies = models.Movie.objects.exclude(filename='').filter(
             Q(name__contains=keyword)
@@ -246,6 +247,9 @@ def search(request):
         count = all_movies.count()
         movies = all_movies[12 * (start - 1):12 * start]
         pages = count / 12 + 1
+    if count == 1:
+        from django.shortcuts import redirect
+        return redirect('/movie/%d' % movies[0].id)
     return TemplateResponse(
         request,
         'search.html',
