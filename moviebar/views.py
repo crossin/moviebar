@@ -99,8 +99,8 @@ def movie(request, movie_id):
         win32api.ShellExecute(0, 'open', movie_file, '','',1)
 
     tags = movie.tags.all()[:4]
-    if len(movie.description) > 230:
-        movie.description = movie.description[:230] + '...'
+    if len(movie.description) > 310:
+        movie.description = movie.description[:310] + '...'
     return TemplateResponse(
         request,
         'movie.html',

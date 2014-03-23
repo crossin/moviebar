@@ -4,13 +4,6 @@
 {% block content %}
 {% with colors='lime green emerald teal cyan cobalt indigo violet pink magenta crimson red orange amber yellow darkMagenta darkIndigo darkCyan darkCobalt darkGreen darkOrange darkRed darkPink darkViolet darkBlue lightBlue lightOlive lightOrange lightPink lightRed darkTeal darkEmerald brown olive steel mauve taupe' %}
 <div class="tile-group double">
-  <div class="tile double quadro-vertical bg-transparent ol-transparent" style="box-shadow:none;cursor:default;display:table">
-    <div style="display:table-cell;vertical-align:middle">
-      <img src="{% static '/movies/' %}{{movie.photo}}">
-    </div>
-   </div>
-</div>
-<div class="tile-group double">
   <div class="tile double bg-lime" style="display:table">
     <div style="display:table-cell;vertical-align:middle;cursor:default;padding:12px">
       <p class="fg-white" style="font-size:30px;margin:18px 0">{{movie.name}}</p>
@@ -18,7 +11,14 @@
       <p class="fg-white" style="font-size:16px;margin:0">{{movie.english}}</p>
     </div> 
   </div>
-  <div class="tile double triple-vertical bg-lightBlue" style="cursor:default">
+  <div class="tile double triple-vertical bg-transparent ol-transparent" style="box-shadow:none;cursor:default;display:table">
+    <div style="display:table-cell;vertical-align:middle">
+      <img src="{% static '/movies/' %}{{movie.photo}}">
+    </div>
+   </div>
+</div>
+<div class="tile-group double">
+  <div class="tile double quadro-vertical bg-lightBlue" style="cursor:default">
     <p class="text fg-white" style="font-size:18px;line-height:20px;padding:5px">{{movie.description}}</p>
   </div>
 </div>
