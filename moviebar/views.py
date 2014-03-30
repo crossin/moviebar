@@ -175,6 +175,7 @@ def update(request):
                 path = settings.STATICFILES_DIRS[i]
                 files = os.listdir(path)
                 files = [f.decode('cp936') for f in files]
+#                files = [f.decode('utf8') for f in files]
                 files = [f for f in files if f.split('.')[-1] in settings.MOVIE_TYPES]
                 from os.path import dirname, join as join_path
                 id_file = join_path(dirname(__file__), './movie-ids.txt')
@@ -208,6 +209,7 @@ def update(request):
                 path = settings.STATICFILES_DIRS[i]
                 files = os.listdir(path)
                 files = [f.decode('cp936') for f in files]
+#                files = [f.decode('utf8') for f in files]
                 movie_files += [f for f in files if f.split('.')[-1] in settings.MOVIE_TYPES]
             names = [''.join(f.split('.')[:-1])[4:] for f in movie_files]
             print movie_files
@@ -216,6 +218,21 @@ def update(request):
             for m in movies:
                 if m.name not in names:
                     newadd.append(m.name)
+        elif 'list' in request.POST:
+            movies = models.Movie.objects.all()
+            from os.path import dirname, join as join_path
+            list_file = join_path(dirname(__file__), './movie-list.txt')
+            import codecs
+            f = codecs.open(list_file, 'r', 'utf-8')
+            movie_list = f.readlines()
+            f.close()
+            for m in movie_list:
+                year = m[:4]
+                name = m[4:].strip()
+                print [name]
+                if not models.Movie.objects.filter(
+                        name=name, year=year).exists():
+                    newadd.append(m)
     return TemplateResponse(
         request,
         'update.html',

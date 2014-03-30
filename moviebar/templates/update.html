@@ -1,7 +1,8 @@
 <form method="POST" id="" action="">
   {% csrf_token %}
-  <input type="submit" name="update" value="get files" />
-  <input type="submit" name="check" value="check movies" />
+  <input type="submit" name="update" value="从硬盘中的电影文件获取影片信息至后台" />
+  <input type="submit" name="check" value="检查后台列表中是否有不存在于硬盘中的影片" />
+  <input type="submit" name="list" value="根据movielist文件检查后台是否缺影片" />
 </form>
 {% for m in newadd %}
 {{m}}
