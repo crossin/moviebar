@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block head %}
+<script>
+$(document).ready(function(){
+  $("#play").click(function(){
+    $.get("/movie/{{movie.id}}/?play=1");
+  });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 {% with colors='lime green emerald teal cyan cobalt indigo violet pink magenta crimson red orange amber yellow darkMagenta darkIndigo darkCyan darkCobalt darkGreen darkOrange darkRed darkPink darkViolet darkBlue lightBlue lightOlive lightOrange lightPink lightRed darkTeal darkEmerald brown olive steel mauve taupe' %}
 <div class="tile-group double">
@@ -64,14 +74,14 @@
       </form>
     </div>
   </div>
-  <a class="tile double double-vertical bg-orange" href="/movie/{{movie.id}}/?play=1">
+  <div class="tile double double-vertical bg-orange" id="play">
     <div class="tile-content icon">
       <i class="icon-play-alt"></i>
     </div>
     <div class="brand">
       <div class="label">点击播放</div>
     </div>
-  </a>
+  </div>
   <a class="tile bg-taupe" onclick="history.go(-1);">
     <div class="tile-content icon">
       <i class="icon-undo"></i>
