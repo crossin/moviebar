@@ -45,7 +45,7 @@ def tag(request, tag_id):
     tag = models.Tag.objects.get(id=tag_id)
     start = int(request.GET.get('start', 1))
     count = tag.movies.exclude(filename='').count()
-    movies = tag.movies.exclude(filename='')[12 * (start - 1):12 * start]
+    movies = tag.movies.exclude(filename='').order_by('-score_douban')[12 * (start - 1):12 * start]
     pages = count / 12 + 1
     return TemplateResponse(
         request,
