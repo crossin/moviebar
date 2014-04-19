@@ -260,7 +260,7 @@ def search(request):
             Q(name__contains=keyword)
             | Q(alias__contains=keyword)
             | Q(english__contains=keyword)
-        )
+        ).order_by('-year')
         count = all_movies.count()
         movies = all_movies[12 * (start - 1):12 * start]
         pages = count / 12 + 1
