@@ -4,6 +4,7 @@ from django.db import models
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
     selected = models.BooleanField(default=False)
+    score = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name

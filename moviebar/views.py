@@ -29,7 +29,7 @@ def home(request):
 def alltags(request):
     start = int(request.GET.get('start', 1))
     count = models.Tag.objects.count()
-    tags = models.Tag.objects.all()[24 * (start - 1):24 * start]
+    tags = models.Tag.objects.all().order_by('-score')[24 * (start - 1):24 * start]
     pages = count / 24 + 1
     return TemplateResponse(
         request,

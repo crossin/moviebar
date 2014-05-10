@@ -9,7 +9,7 @@ from . import models
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'selected']
+    list_display = ['id', 'name', 'selected', 'score']
 
 
 class MovieAdmin(admin.ModelAdmin):
