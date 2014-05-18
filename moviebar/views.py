@@ -1,11 +1,18 @@
 #-*- coding: utf-8 -*-
 import os
-
+import time
+import codecs
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.db.models import Q
 from django.template.response import TemplateResponse
 from . import models
+
+def log(content):
+    t = time.strftime('%Y-%m-%d %H:%M:%S')
+    f = codecs.open(settings.PROJECT_ROOT + 'movies.log', 'a', 'utf-8')
+    f.write('[%s]%s\n' % (t, content))
+    f.close()
 
 
 def home(request):
@@ -88,6 +95,7 @@ def selected(request):
 def movie(request, movie_id):
     movie = models.Movie.objects.get(id=movie_id)
     if request.GET.get('play', '0') == '1':
+        log('Play movie: ' + movie.name)
         # to change on windows
         '''
         os.system(
