@@ -37,7 +37,7 @@ def alltags(request):
     start = int(request.GET.get('start', 1))
     count = models.Tag.objects.count()
     tags = models.Tag.objects.all().order_by('-score')[24 * (start - 1):24 * start]
-    pages = count / 24 + 1
+    pages = (count - 1) / 24 + 1
     return TemplateResponse(
         request,
         'alltags.html',
@@ -53,7 +53,7 @@ def tag(request, tag_id):
     start = int(request.GET.get('start', 1))
     count = tag.movies.exclude(filename='').count()
     movies = tag.movies.exclude(filename='').order_by('-score_douban')[12 * (start - 1):12 * start]
-    pages = count / 12 + 1
+    pages = (count - 1) / 12 + 1
     return TemplateResponse(
         request,
         'tag.html',
@@ -271,7 +271,7 @@ def search(request):
         ).order_by('-year')
         count = all_movies.count()
         movies = all_movies[12 * (start - 1):12 * start]
-        pages = count / 12 + 1
+        pages = (count - 1) / 12 + 1
     if count == 1:
         from django.shortcuts import redirect
         return redirect('/movie/%d' % movies[0].id)
