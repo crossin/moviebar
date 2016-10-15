@@ -54,7 +54,7 @@ class MovieAdmin(admin.ModelAdmin):
         count = queryset.count()
         i = 0
         for movie in queryset:
-            url = 'http://api.douban.com/v2/movie/subject/%s' % movie.douban_id
+            url = 'https://api.douban.com/v2/movie/subject/%s' % movie.douban_id
             resp = urllib2.urlopen(url)
             html = resp.read()
             data = json.loads(html)
